@@ -70,7 +70,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-slate-900 to-slate-700 px-5 md:px-20">
+    <div className="bg-gradient-to-r from-blue-200 to-cyan-200 dark:bg-gradient-to-r dark:from-slate-900 dark:to-slate-700 px-5 md:px-20">
       <header className="flex py-5">
         <h1 className="text-xl font-bold ">FollbackChecker</h1>
       </header>
