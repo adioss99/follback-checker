@@ -3,7 +3,6 @@
 const InputJson = ({ onUpload }) => {
 
   const handleFile = (event) => {
-    console.log(event);
     const file = event.target.files[0];
 
     if (file.type !== 'application/json') {

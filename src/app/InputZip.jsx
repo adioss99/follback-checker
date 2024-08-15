@@ -18,9 +18,8 @@ const InputZip = ({ onUpload }) => {
     event.preventDefault();
     setIsDragging(false);
 
-    console.log(event);
-    const file = event._reactName == 'onDrop' ? event.dataTransfer.files[0] : event.target.files[0]; ;
-    console.log(file)
+    const file = event._reactName == 'onDrop' ? event.dataTransfer.files[0] : event.target.files[0];
+
     if (file.type !== 'application/x-zip-compressed') {
       alert('Please upload a valid ZIP file.');
       return;
@@ -44,8 +43,8 @@ const InputZip = ({ onUpload }) => {
         const followerContent = JSON.parse(await zip.file(followerPath).async('string'));
         const followingContent = JSON.parse(await zip.file(followingPath).async('string')).relationships_following;
 
-        onUpload(followerContent, 'follower');
-        onUpload(followingContent, 'following');
+        onUpload([[followerContent, 'follower'], [followingContent, 'following']]);
+        // onUpload(followingContent, 'following');
       } catch (error) {
         console.error('Error processing ZIP file:', error);
         alert('Error processing ZIP file.');
