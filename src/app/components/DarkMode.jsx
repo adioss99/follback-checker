@@ -21,15 +21,24 @@ const SunIcon = (props) => (
 
 const DarkMode = () => {
   const [isLight, setisLight] = useState(true);
+  const getSystemTheme = () => {
+    if (typeof window !== 'undefined') {
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefersDarkMode ? 'dark' : 'light';
+    }
+  };
 
   useEffect(() => {
+    const systemTheme = getSystemTheme();
     const theme = document.getElementById('ui-theme');
-    if (theme.classList.contains('dark')) {
+    if (systemTheme === 'light') {
       theme.classList.remove('dark');
       theme.classList.add('light');
+      setisLight(true);
     } else {
       theme.classList.remove('light');
       theme.classList.add('dark');
+      setisLight(false);
     }
   }, [isLight]);
 

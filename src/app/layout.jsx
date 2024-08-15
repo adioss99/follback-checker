@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" id="ui-theme" className="light">
+    <html lang="en" id="ui-theme">
       <body className={`${inter.className} bg-gradient-to-r from-blue-200 to-cyan-200 dark:bg-gradient-to-r dark:from-slate-900 dark:to-slate-700 px-5 md:px-20`}>
         <Providers>{children}</Providers>
       </body>
