@@ -46,7 +46,7 @@ const DarkMode = () => {
   useEffect(() => {
     const systemTheme = getSystemTheme();
     const theme = document.getElementById('ui-theme');
-    console.log(systemTheme);
+    
     if (systemTheme) {
       theme.classList.add('dark');
       setisLight(false);

@@ -1,12 +1,16 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { Tabs, Tab, Card, CardBody } from '@nextui-org/react';
 import InputJson from './InputJson';
 import InputZip from './InputZip';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { useEffect, useState } from 'react';
+import { Tabs, Tab } from '@nextui-org/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
+import TabHow from './TabHow';
 
 export default function Home() {
+  const [selected, setSelected] = useState('zip');
   const [follower, setfollower] = useState(null);
   const [following, setfollowing] = useState(null);
   const [notFollowingBack, setnotFollowingBack] = useState([]);
@@ -50,15 +54,19 @@ export default function Home() {
         fowing = e[0];
       }
     });
-    handleProccess(fower, fowing)
+    handleProccess(fower, fowing);
   };
+
+  useEffect(() => {
+    setnotFollowingBack([]);
+  }, [selected]);
 
   return (
     <>
       <Header />
       <section className="flex flex-col min-h-screen pt-10">
         <div className="flex flex-col items-center">
-          <Tabs variant="underlined" aria-label="Tabs variants">
+          <Tabs selectedKey={selected} onSelectionChange={setSelected} variant="underlined" aria-label="Tabs variants">
             <Tab key="json" title="JSON file" className="flex flex-col items-center font-medium">
               <InputJson onUpload={handleUpload} />
               <div className="flex flex-col item-center">
@@ -70,8 +78,20 @@ export default function Home() {
                 </button>
               </div>
             </Tab>
-            <Tab key="zip" title="ZIP file" className="font-medium " disabled>
+            <Tab key="zip" title="ZIP file" className="font-medium ">
               <InputZip onUpload={zipResult} />
+            </Tab>
+            <Tab
+              key="how"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span>How</span>
+                  <FontAwesomeIcon icon={faCircleQuestion} />
+                </div>
+              }
+              className="font-medium "
+            >
+              <TabHow />
             </Tab>
           </Tabs>
         </div>
