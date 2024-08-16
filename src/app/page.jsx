@@ -95,20 +95,20 @@ export default function Home() {
             </Tab>
           </Tabs>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center my-5">
           {notFollowingBack.length > 0 && (
-            <div className="flex flex-col item-center my-5">
+            <>
               <h2 className="text-md font-bold text-center mb-5 text-gray-900 dark:text-white">Not Following Back</h2>
-              <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow p-5 dark:bg-gray-800 dark:border-gray-700">
-                <ul className="text-center">
+              <div className="relative flex flex-col text-gray-700 bg-white dark:bg-gray-700 shadow-md w-full md:max-w-sm rounded-xl bg-clip-border">
+                <nav className="flex flex-col gap-1 p-2 font-sans font-medium text-blue-gray-700">
                   {notFollowingBack.map((e, index) => (
-                    <li key={index} className="mt-0.5">
-                      <p className="text-gray-900 dark:text-white">{e}</p>
-                    </li>
+                    <div key={index} href="#" className="px-3 py-0.5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md">
+                      <div role="button">{e}</div>
+                    </div>
                   ))}
-                </ul>
+                </nav>
               </div>
-            </div>
+            </>
           )}
         </div>
       </section>
