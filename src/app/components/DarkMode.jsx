@@ -1,4 +1,5 @@
 import { Switch } from '@nextui-org/react';
+import { Share_Tech } from 'next/font/google';
 import React, { useEffect, useState } from 'react';
 
 const MoonIcon = (props) => (
@@ -21,17 +22,17 @@ const SunIcon = (props) => (
 
 const DarkMode = () => {
   const [isLight, setisLight] = useState(true);
+
   const getSystemTheme = () => {
     if (typeof window !== 'undefined') {
       const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return prefersDarkMode ? 'dark' : 'light';
+      return prefersDarkMode;
     }
   };
 
-  useEffect(() => {
-    const systemTheme = getSystemTheme();
+  const themeSet = () => {
     const theme = document.getElementById('ui-theme');
-    if (systemTheme === 'light') {
+    if (theme.classList.contains('dark')) {
       theme.classList.remove('dark');
       theme.classList.add('light');
       setisLight(true);
@@ -40,9 +41,26 @@ const DarkMode = () => {
       theme.classList.add('dark');
       setisLight(false);
     }
-  }, [isLight]);
+  };
 
-  return <Switch defaultSelected size="sm" startContent={isLight ? <SunIcon /> : <MoonIcon />} endContent={!isLight ? <MoonIcon /> : <SunIcon />} isSelected={isLight} onValueChange={setisLight} />;
+  useEffect(() => {
+    const systemTheme = getSystemTheme();
+    const theme = document.getElementById('ui-theme');
+    console.log(systemTheme);
+    if (systemTheme) {
+      theme.classList.add('dark');
+      setisLight(false);
+    } else {
+      theme.classList.add('light');
+      setisLight(true);
+    }
+  }, []);
+
+  const themeToogle = () => {
+    themeSet()
+  }
+
+  return <Switch defaultSelected size="sm" startContent={isLight ? <SunIcon /> : <MoonIcon />} endContent={!isLight ? <MoonIcon /> : <SunIcon />} isSelected={isLight} onValueChange={themeToogle} />;
 };
 
 export default DarkMode;
