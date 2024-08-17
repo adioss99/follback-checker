@@ -7,6 +7,11 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata = {
   title: 'Insta Follback Checker',
   description: 'Check who dont following you back here',
+  icons: {
+    icon: ['/ico/favicon.ico?v=4'],
+    apple: ['/ico/apple-touch-icon.png?v=4'],
+    shortcut: ['/ico/apple-touch-icon.png'],
+  },
 };
 
 export default function RootLayout({ children }) {
