@@ -44,7 +44,6 @@ const InputZip = ({ onUpload }) => {
         const followingContent = JSON.parse(await zip.file(followingPath).async('string')).relationships_following;
 
         onUpload([[followerContent, 'follower'], [followingContent, 'following']]);
-        // onUpload(followingContent, 'following');
       } catch (error) {
         console.error('Error processing ZIP file:', error);
         alert('Error processing ZIP file.');

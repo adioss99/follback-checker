@@ -1,13 +1,16 @@
 'use client';
 import InputJson from './InputJson';
 import InputZip from './InputZip';
+import TabHow from './TabHow';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Result from './components/Result';
+
 import { useEffect, useState } from 'react';
 import { Tabs, Tab } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
-import TabHow from './TabHow';
+import { faCircleArrowLeft, faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home() {
   const [selected, setSelected] = useState('zip');
@@ -15,14 +18,7 @@ export default function Home() {
   const [following, setfollowing] = useState(null);
   const [notFollowingBack, setnotFollowingBack] = useState([]);
   const [notFollowedback, setnotFollowedback] = useState([]);
-
-  const handleUpload = (data, type) => {
-    if (type === 'follower') {
-      setfollower(data);
-    } else if (type === 'following') {
-      setfollowing(data);
-    }
-  };
+  const [show, setshow] = useState(false);
 
   const handleProccess = (fower, fowing) => {
     if (fower == null || fowing == null) {
@@ -30,17 +26,28 @@ export default function Home() {
       return;
     }
 
-    const followers = fower.map((e) => {
-      return e.string_list_data[0].value;
-    });
-    const followings = fowing.map((element) => {
-      return element.string_list_data[0].value;
-    });
+    const notFYB = fowing
+      .filter((e1) => {
+        return !fower.some((e) => e1.string_list_data[0].value === e.string_list_data[0].value);
+      })
+      .map((e) => e.string_list_data[0]);
+    const notFdB = fower
+      .filter((e1) => {
+        return !fowing.some((e) => e1.string_list_data[0].value === e.string_list_data[0].value);
+      })
+      .map((e) => e.string_list_data[0]);
 
-    const notFB = followings.filter((e) => !followers.includes(e));
-    const notFollowed = followers.filter((e) => !followings.includes(e));
-    setnotFollowedback(notFollowed);
-    setnotFollowingBack(notFB);
+    setnotFollowingBack(notFYB);
+    setnotFollowedback(notFdB);
+    setshow(true);
+  };
+
+  const handleUpload = (data, type) => {
+    if (type === 'follower') {
+      setfollower(data);
+    } else if (type === 'following') {
+      setfollowing(data);
+    }
   };
 
   const zipResult = (args) => {
@@ -59,6 +66,8 @@ export default function Home() {
 
   useEffect(() => {
     setnotFollowingBack([]);
+    setnotFollowedback([]);
+    setshow(false);
   }, [selected]);
 
   return (
@@ -95,22 +104,50 @@ export default function Home() {
             </Tab>
           </Tabs>
         </div>
-        <div className="flex flex-col items-center my-5">
-          {notFollowingBack.length > 0 && (
-            <>
-              <h2 className="text-md font-bold text-center mb-5 text-gray-900 dark:text-white">Not Following Back</h2>
-              <div className="relative flex flex-col text-gray-700 bg-white dark:bg-gray-700 shadow-md w-full md:max-w-sm rounded-xl bg-clip-border">
-                <nav className="flex flex-col gap-1 p-2 font-sans font-medium text-blue-gray-700">
-                  {notFollowingBack.map((e, index) => (
-                    <div key={index} href="#" className="px-3 py-0.5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md">
-                      <div role="button">{e}</div>
-                    </div>
-                  ))}
-                </nav>
+        {show && (
+          <Tabs key={1} variant="underlined" aria-label="Tabs radius" className="flex flex-col items-center mt-5">
+            <Tab
+              key="1"
+              title={
+                <>
+                  <FontAwesomeIcon icon={faCircleArrowLeft} />
+                </>
+              }
+            >
+              <div className="flex flex-col items-center my-1">
+                {notFollowingBack.length > 0 ? (
+                  <>
+                    <Result data={notFollowingBack} title={"Doesn't Follow You Back"} />
+                  </>
+                ) : (
+                  <div role="alert" className="relative mt-5 flex w-full md:max-w-sm rounded-xl px-4 py-4 text-base text-gray-700 bg-white dark:bg-gray-700 shadow-md font-regular">
+                    <div className="mx-auto font-semibold text-gray-900 dark:text-white">Null</div>
+                  </div>
+                )}
               </div>
-            </>
-          )}
-        </div>
+            </Tab>
+            <Tab
+              key="2"
+              title={
+                <>
+                  <FontAwesomeIcon icon={faCircleArrowRight} />
+                </>
+              }
+            >
+              <div className="flex flex-col items-center my-1">
+                {notFollowedback.length > 0 ? (
+                  <>
+                    <Result data={notFollowedback} title={"You Don't Follow Back"} />
+                  </>
+                ) : (
+                  <div role="alert" className="relative mt-5 flex w-full md:max-w-sm rounded-xl px-4 py-4 text-base text-gray-700 bg-white dark:bg-gray-700 shadow-md font-regular">
+                    <div className="mx-auto font-semibold text-gray-900 dark:text-white">Null</div>
+                  </div>
+                )}
+              </div>
+            </Tab>
+          </Tabs>
+        )}
       </section>
       <Footer />
     </>

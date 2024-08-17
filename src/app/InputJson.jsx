@@ -43,7 +43,7 @@ const InputJson = ({ onUpload }) => {
       }
     } catch (error) {
       console.error('Error reading file:', error);
-      alert('Please upload a valid JSON file.');
+      alert('Upload a valid JSON files.');
     }
   };
 
