@@ -20,8 +20,8 @@ const InputZip = ({ onUpload }) => {
 
     const file = event._reactName == 'onDrop' ? event.dataTransfer.files[0] : event.target.files[0];
 
-    if (file.type !== 'application/x-zip-compressed') {
-      alert('Please upload a valid ZIP file.' + file.type);
+    if (!file.type.includes('zip')) {
+      alert('Please upload a valid ZIP file. ' + file.type);
       return;
     }
 
@@ -61,7 +61,7 @@ const InputZip = ({ onUpload }) => {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`flex items-center justify-center w-64 md:w-96 my-2 p-4 border-2 border-dashed rounded-lg cursor-pointer h-64 border-gray-300bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 ${
+      className={`flex items-center m-auto justify-center my-2 p-4 border-2 border-dashed rounded-lg cursor-pointer h-72 max-w-2xl border-gray-300bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 ${
         isDragging ? 'bg-gray-200 border-gray-500' : 'bg-gray-50 border-gray-300'
       }`}
       htmlFor="dropzone-file"

@@ -87,7 +87,7 @@ export default function Home() {
                 </button>
               </div>
             </Tab>
-            <Tab key="zip" title="ZIP file" className="font-medium ">
+            <Tab key="zip" title="ZIP file" className="font-medium w-full">
               <InputZip onUpload={zipResult} />
             </Tab>
             <Tab
