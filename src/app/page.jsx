@@ -30,12 +30,14 @@ export default function Home() {
       .filter((e1) => {
         return !fower.some((e) => e1.string_list_data[0].value === e.string_list_data[0].value);
       })
-      .map((e) => e.string_list_data[0]);
+      .map((e) => e.string_list_data[0])
+      .sort((a, b) => a.value.localeCompare(b.value));
     const notFdB = fower
       .filter((e1) => {
         return !fowing.some((e) => e1.string_list_data[0].value === e.string_list_data[0].value);
       })
-      .map((e) => e.string_list_data[0]);
+      .map((e) => e.string_list_data[0])
+      .sort((a, b) => a.value.localeCompare(b.value));
 
     setnotFollowingBack(notFYB);
     setnotFollowedback(notFdB);
