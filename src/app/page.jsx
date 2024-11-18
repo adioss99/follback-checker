@@ -119,7 +119,7 @@ export default function Home() {
               <div className="flex flex-col items-center my-1">
                 {notFollowingBack.length > 0 ? (
                   <>
-                    <Result data={notFollowingBack} title={"Doesn't Follow You Back"} />
+                    <Result data={notFollowingBack} title={"Not Following You Back"} />
                   </>
                 ) : (
                   <div role="alert" className="relative mt-5 flex w-full md:max-w-sm rounded-xl px-4 py-4 text-base text-gray-700 bg-white dark:bg-gray-700 shadow-md font-regular">
